@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews List</title>
+    <link rel="stylesheet" href="{% static 'reviews/css/styles.css' %}">
+
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background-color: #f4f4f4; 
+            margin: 50px; 
+        }
+        h1 { 
+            color: #333; 
+        }
+        .container { 
+            max-width: 700px; 
+            margin: auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        li { 
+            background: #fff; 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-radius: 5px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            text-align: left;
+        }
+        .reviewer { 
+            font-weight: bold; 
+            color: #007bff; 
+        }
+        .rating { 
+            font-weight: bold; 
+            color: #28a745; 
+        }
+        .feedback { 
+            font-style: italic; 
+            color: #555; 
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 12px;
+            width: 80%;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📜 Peer Reviews</h1>
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <span class="reviewer">👤 {{ review.reviewer.username }}</span>  
+                    reviewed  
+                    <span class="reviewer">👤 {{ review.reviewee.username }}</span>  
+                    <br>
+                    <span class="rating">⭐ Rating: {{ review.rating }}/5</span>
+                    <p class="feedback">📝 "{{ review.feedback }}"</p>
+                </li>
+            {% empty %}
+                <li>No reviews available.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'reviews:add_review' %}" class="btn">➕ Add a Review</a>
+        <a href="{% url 'reviews:home' %}" class="btn">🏠 Back to Home</a>
+    </div>
+</body>
+</html>

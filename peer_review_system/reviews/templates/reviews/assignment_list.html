@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'reviews/css/styles.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment List</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background-color: #f4f4f4; 
+            margin: 50px; 
+        }
+        h1 { color: #333; }
+        .container { 
+            max-width: 600px; 
+            margin: auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+        ul { list-style-type: none; padding: 0; }
+        li { 
+            background: #fff; 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .title { font-weight: bold; color: #007bff; }
+        .description { font-size: 14px; color: #444; }
+        .uploader { font-size: 14px; color: #555; }
+        .uploaded-at { font-size: 12px; color: #888; }
+        .download-btn, .delete-btn, .upload-btn, .back-btn { 
+            display: inline-block; 
+            padding: 10px; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .download-btn { background-color: #28a745; }
+        .download-btn:hover { background-color: #218838; }
+        .delete-btn { background-color: #dc3545; }
+        .delete-btn:hover { background-color: #c82333; }
+        .upload-btn { background-color: #17a2b8; }
+        .upload-btn:hover { background-color: #138496; }
+        .back-btn { background-color: #007bff; display: block; width: 80%; margin: 20px auto; }
+        .back-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📂 Assignment List</h1>
+        <a href="{% url 'reviews:upload_assignment' %}" class="upload-btn">⬆ Upload Assignment</a>
+        <ul>
+            {% for assignment in assignments %}
+                <li>
+                    <span class="title">{{ assignment.title }}</span> <br>
+                    <span class="description">{{ assignment.description }}</span> <br>
+                    <span class="uploader">Uploaded by {{ assignment.uploader.username }}</span> <br>
+                    <span class="uploaded-at">📅 {{ assignment.uploaded_at|date:"d M Y, H:i A" }}</span> <br>
+                    <a href="{{ assignment.file.url }}" class="download-btn" download>⬇ Download ({{ assignment.file.size|filesizeformat }})</a>
+                    
+                    {% if user == assignment.uploader %}
+                        <form method="post" action="{% url 'reviews:delete_assignment' assignment.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn">🗑 Delete</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No assignments uploaded yet.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'reviews:home' %}" class="back-btn">🏠 Back to Home</a>
+    </div>
+</body>
+</html>

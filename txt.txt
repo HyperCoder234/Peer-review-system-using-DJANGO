@@ -1,0 +1,33 @@
+peer_review_system/  # 🌟 Root Django Project Folder
+│── peer_review_system/  # 🌟 Project Config Folder
+│   │── settings.py  # Django settings (STATIC, MEDIA setup)
+│   │── urls.py  # Main URL router
+│   │── wsgi.py / asgi.py  # Server entry points
+│
+│── reviews/  # 🌟 App Folder (Main Functionality)
+│   │── migrations/  # DB changes
+│   │── templates/reviews/  # 🌟 All templates here
+│   │   │── base.html  # 🔹 Common Layout
+│   │   │── home.html  # 🏠 Home Page
+│   │   │── add_reviews.html  # ✍️ Review Form
+│   │   │── list_reviews.html  # 📜 Review List
+│   │   │── upload_assignment.html  # 📤 Assignment Upload Form
+│   │   │── assignment_list.html  # 📋 Assignments List
+│   │── static/reviews/  # 🌟 Static Files (CSS, JS, Images)
+│   │   │── css/styles.css  # 🎨 Custom Styling
+│   │── models.py  # 📦 Database Models (Review, Assignment)
+│   │── views.py  # 👀 All Business Logic
+│   │── forms.py  # 📝 Django Forms for Uploads
+│   │── urls.py  # 🛤 URLs for Reviews & Assignments
+│
+│── media/  # 🌟 Uploaded Files Folder (Assignments, Reviews)
+│   │── assignments/  # 📂 Uploaded Assignments (PDFs, PPTs)
+│   │── assignments/images/  # 📂 Uploaded Assignment Images
+│   │── reviews/  # 📂 Uploaded Reviews
+│
+│── static/  # 🌟 Static Files (CSS, JS)
+│   │── css/styles.css  # 🎨 Stylesheet
+│
+│── db.sqlite3  # 📊 Database
+│── manage.py  # ⚙ Django Command Line Tool
+
